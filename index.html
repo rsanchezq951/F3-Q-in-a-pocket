@@ -204,10 +204,10 @@ s.mins=Math.max(1,Math.round(s.secs/60));
 if(f==="AMRAP")s.note="AMRAP: as many rounds as possible in "+s.mins+" min. Count your rounds."}
 function mkT(title,f,pool,n,target){
 var s={key:"thang",title:title,fmt:f,items:[]};
-var rp=pool.filter(function(x){return !DIST[x]});if(rp.length<6)rp=pool;
+var rp=pool.filter(function(x){return !DIST[x]});
 function nm(a){return a.map(function(x){return{n:x,r:reps("thang",x)}})}
 function fx(a,lab){a.forEach(function(it,i){it.fixed=true;if(lab)it.lab=lab+(i+1)});return a}
-if(f==="4 Corners"){s.items=nm(shuffle(pool).slice(0,4));s.items.forEach(function(it,i){it.lab="Corner "+(i+1)});s.note="Travel between corners: "+pick(["bear crawl","mosey","lunge walk","crab walk","sprint"])+"."}
+if(f==="4 Corners"){s.items=nm(shuffle(rp).slice(0,4));s.items.forEach(function(it,i){it.lab="Corner "+(i+1)});s.note="Travel between corners: "+pick(["bear crawl","mosey","lunge walk","crab walk","sprint"])+"."}
 else if(f==="7’s"){var np=Math.max(1,Math.min(3,Math.round(target/300),Math.floor(rp.length/2))),a=shuffle(rp).slice(0,np*2);for(var i=0;i<np;i++){s.items.push({n:a[2*i],r:"7 down to 1",lab:"Pair "+(i+1)+", end A",fixed:true},{n:a[2*i+1],r:"1 up to 7",lab:"Pair "+(i+1)+", end B",fixed:true})}s.note="Two lines about 25 yds apart. Do your A reps, run to B, do your B reps, run back. The reps swap every trip."}
 else if(f==="Dora 1-2-3"){s.items=fx(nm(shuffle(rp).slice(0,3)),"Exercise ");s.note="Partner up. One partner runs a lap while the other does reps, then swap. Reps go 1x, 2x, 3x."}
 else if(f==="Pyramid"){s.items=fx(nm(shuffle(rp).slice(0,2)),"Move ");s.items[0].lab="Move A";s.items[1].lab="Move B";s.note="Do both moves at every rung. Reps climb to the top, then come back down."}
