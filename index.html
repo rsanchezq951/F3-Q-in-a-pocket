@@ -247,7 +247,7 @@ $("f1").onchange=function(e){S.f1=e.target.value};$("f2").onchange=function(e){S
 $("cp").onchange=function(e){S.coupon=e.target.checked};$("my").onchange=function(e){S.mary=e.target.checked};
 $("gen").onclick=gen;var sm=$("sm");if(sm)sm.onclick=showSum;
 document.querySelectorAll("[data-in]").forEach(function(b){b.onclick=function(){showInfo(b.dataset.in)}});
-document.querySelectorAll("[data-sw]").forEach(function(b){b.onclick=function(){var p=b.dataset.sw.split(","),s=S.plan[p[0]],used=s.items.map(function(x){return x.n});var pool=(s.key==="thang"?thangPool():LIB[s.key]).filter(function(x){return used.indexOf(x)<0&&!(s.fmt&&s.fmt!=="Rounds"&&s.fmt!=="4 Corners"&&DIST[x])});if(pool.length){var it=s.items[p[1]];it.n=pick(pool);if(!it.fixed)it.r=reps(s.key,it.n);calc(s,s.target)}draw()}});
+document.querySelectorAll("[data-sw]").forEach(function(b){b.onclick=function(){var p=b.dataset.sw.split(","),s=S.plan[p[0]],used=s.items.map(function(x){return x.n});var pool=(s.key==="thang"?thangPool():LIB[s.key]).filter(function(x){return used.indexOf(x)<0&&!(s.fmt&&s.fmt!=="Rounds"&&DIST[x])});if(pool.length){var it=s.items[p[1]];it.n=pick(pool);if(!it.fixed)it.r=reps(s.key,it.n);calc(s,s.target)}draw()}});
 document.querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){var p=b.dataset.rm.split(","),s=S.plan[p[0]];if(s.items.length>1){s.items.splice(p[1],1);calc(s,s.target)}draw()}});
 }
 function viewTimer(){
