@@ -184,6 +184,11 @@ var T={m:"t",set:300,left:300,run:false,end:0,rep:false,sw:0,swRun:false,swStart
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function doraPool(pool){
+  return pool.filter(function(x){
+    return x !== "Burpees";
+  });
+}  
 function pad(n){return n<10?"0"+n:""+n}
 function fmt(s){return Math.floor(s/60)+":"+pad(s%60)}
 function fsw(ms){var t=Math.floor(ms/100),s=Math.floor(t/10);return Math.floor(s/60)+":"+pad(s%60)+"."+t%10}
@@ -209,7 +214,11 @@ function nm(a){return a.map(function(x){return{n:x,r:reps("thang",x)}})}
 function fx(a,lab){a.forEach(function(it,i){it.fixed=true;if(lab)it.lab=lab+(i+1)});return a}
 if(f==="4 Corners"){s.items=nm(shuffle(rp).slice(0,4));s.items.forEach(function(it,i){it.lab="Corner "+(i+1)});s.note="Travel between corners: "+pick(["bear crawl","mosey","lunge walk","crab walk","sprint"])+"."}
 else if(f==="7’s"){var np=Math.max(1,Math.min(3,Math.round(target/300),Math.floor(rp.length/2))),a=shuffle(rp).slice(0,np*2);for(var i=0;i<np;i++){s.items.push({n:a[2*i],r:"7 down to 1",lab:"Pair "+(i+1)+", end A",fixed:true},{n:a[2*i+1],r:"1 up to 7",lab:"Pair "+(i+1)+", end B",fixed:true})}s.note="Two lines about 25 yds apart. Do your A reps, run to B, do your B reps, run back. The reps swap every trip."}
-else if(f==="Dora 1-2-3"){s.items=fx(nm(shuffle(rp).slice(0,3)),"Exercise ");s.note="Partner up. One partner runs a lap while the other does reps, then swap. Reps go 1x, 2x, 3x."}
+else if(f==="Dora 1-2-3"){
+  var doraChoices = doraPool(rp);
+  s.items=fx(nm(shuffle(doraChoices).slice(0,3)),"Exercise ");
+  s.note="Partner up. One partner runs a lap while the other does reps, then swap. Reps go 1x, 2x, 3x.";
+}
 else if(f==="Pyramid"){s.items=fx(nm(shuffle(rp).slice(0,2)),"Move ");s.items[0].lab="Move A";s.items[1].lab="Move B";s.note="Do both moves at every rung. Reps climb to the top, then come back down."}
 else if(f==="AMRAP"){s.items=fx(nm(shuffle(rp).slice(0,3)));s.items.forEach(function(it,i){it.r="x"+5*(i+1)})}
 else if(f==="Tabata"){var nb=Math.max(1,Math.min(4,Math.round(target/270)));shuffle(rp).slice(0,nb).forEach(function(x,i){s.items.push({n:x,r:"20 sec on, 10 off x8",lab:"Block "+(i+1),fixed:true})});s.note="Each block is 4 minutes: 20 seconds of work, 10 seconds of rest, 8 times."}
@@ -247,7 +256,26 @@ $("f1").onchange=function(e){S.f1=e.target.value};$("f2").onchange=function(e){S
 $("cp").onchange=function(e){S.coupon=e.target.checked};$("my").onchange=function(e){S.mary=e.target.checked};
 $("gen").onclick=gen;var sm=$("sm");if(sm)sm.onclick=showSum;
 document.querySelectorAll("[data-in]").forEach(function(b){b.onclick=function(){showInfo(b.dataset.in)}});
-document.querySelectorAll("[data-sw]").forEach(function(b){b.onclick=function(){var p=b.dataset.sw.split(","),s=S.plan[p[0]],used=s.items.map(function(x){return x.n});var pool=(s.key==="thang"?thangPool():LIB[s.key]).filter(function(x){return used.indexOf(x)<0&&!(s.fmt&&s.fmt!=="Rounds"&&DIST[x])});if(pool.length){var it=s.items[p[1]];it.n=pick(pool);if(!it.fixed)it.r=reps(s.key,it.n);calc(s,s.target)}draw()}});
+document.querySelectorAll("[data-sw]").forEach(function(b){b.onclick=function(){
+  var p=b.dataset.sw.split(","),s=S.plan[p[0]],used=s.items.map(function(x){return x.n});
+  var pool=(s.key==="thang"?thangPool():s.key==="warm"?LIB.warm:LIB.mary);
+
+  if(s.fmt==="Dora 1-2-3"){
+    pool=doraPool(pool);
+  }
+
+  var can=pool.filter(function(x){return used.indexOf(x)<0});
+  if(can.length<1)can=pool.slice();
+  var x=pick(can);
+  var i=s.items[p[1]];
+  if(i){
+    i.n=x;
+    var y=/^\d/.test(i.r)?i.r:reps(s.key,x);
+    i.r=y;
+    calc(s,s.target)
+  }
+  draw()
+}})
 document.querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){var p=b.dataset.rm.split(","),s=S.plan[p[0]];if(s.items.length>1){s.items.splice(p[1],1);calc(s,s.target)}draw()}});
 }
 function viewTimer(){
