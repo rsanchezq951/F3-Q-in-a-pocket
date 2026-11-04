@@ -215,7 +215,7 @@ function fx(a,lab){a.forEach(function(it,i){it.fixed=true;if(lab)it.lab=lab+(i+1
 if(f==="4 Corners"){s.items=nm(shuffle(rp).slice(0,4));s.items.forEach(function(it,i){it.lab="Corner "+(i+1)});s.note="Travel between corners: "+pick(["bear crawl","mosey","lunge walk","crab walk","sprint"])+"."}
 else if(f==="7’s"){var np=Math.max(1,Math.min(3,Math.round(target/300),Math.floor(rp.length/2))),a=shuffle(rp).slice(0,np*2);for(var i=0;i<np;i++){s.items.push({n:a[2*i],r:"7 down to 1",lab:"Pair "+(i+1)+", end A",fixed:true},{n:a[2*i+1],r:"1 up to 7",lab:"Pair "+(i+1)+", end B",fixed:true})}s.note="Two lines about 25 yds apart. Do your A reps, run to B, do your B reps, run back. The reps swap every trip."}
 else if(f==="Dora 1-2-3"){
-  var doraChoices = doraPool(rp);
+  var doraChoices=rp.filter(function(x){return x!=="Burpees"});
   s.items=fx(nm(shuffle(doraChoices).slice(0,3)),"Exercise ");
   s.note="Partner up. One partner runs a lap while the other does reps, then swap. Reps go 1x, 2x, 3x.";
 }
@@ -261,8 +261,8 @@ document.querySelectorAll("[data-sw]").forEach(function(b){b.onclick=function(){
   var pool=(s.key==="thang"?thangPool():s.key==="warm"?LIB.warm:LIB.mary);
 
   if(s.fmt==="Dora 1-2-3"){
-    pool=doraPool(pool);
-  }
+  pool=pool.filter(function(x){return x!=="Burpees"});
+}
 
   var can=pool.filter(function(x){return used.indexOf(x)<0});
   if(can.length<1)can=pool.slice();
