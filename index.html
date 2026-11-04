@@ -65,7 +65,7 @@ var P=function(s){return s.split(";").map(function(x){return x.split("|")})};
 var LIB={
 warm:"Side Straddle Hops;Imperial Walkers;Windmills;Arm Circles;Butt Kickers;Willie Mays Hayes;Weed Pickers;Slow Squats;Michael Phelps;Toy Soldiers;Hillbillies;Moroccan Nightclub".split(";"),
 mary:"LBCs;Flutter Kicks;Plank Hold;American Hammers;Box Cutters;Hello Dollies;Low Slow Flutters;Dying Cockroaches;E2K;Reverse Crunches;Gas Pumpers;Heels to Heaven;Big Boy Sit-up;Dolly;Freddie Mercury;Pickle Pointer;Pickle Pounder;Rosalita;V-Up".split(";"),
-thang:P("Burpees|F;Merkins|U;Squats|L;Walking Lunges|L;Bear Crawls|F;Diamond Merkins|U;Jump Squats|L;Hand Release Merkins|U;Bonnie Blairs|C;Sprints|C;Mountain Climbers|C;Dips|U;High Knees|C;Crab Walks|F;Broad Jumps|L;Duck Walks|L;Wide Merkins|U;Carolina Dry Docks|U;Reverse Lunges|L;Star Jumps|C;Decline Merkins|U;Calf Raises|L;Alternating Shoulder Taps|U;Bear Brawl|F;Bernie Sanders|C;Bobby Hurley|L;Carioca|C;Copperhead Squat|L;Lunge|L;Mike Tyson|U;Monkey Humpers|L;Plank Jack|C;Smurf Jacks|C;Tempo Merkin|U;Step-ups|L;Big Boy Sit-up|F;American Hammers|F;Flutter Kicks|F;E2K|F;Freddie Mercury|F;V-Up|F;LBCs|F"),
+thang:P("Burpees|F;Merkins|U;Squats|L;Walking Lunges|L;Bear Crawls|F;Diamond Merkins|U;Jump Squats|L;Hand Release Merkins|U;Bonnie Blairs|C;Sprints|C;Mountain Climbers|C;Dips|U;High Knees|C;Crab Walks|F;Broad Jumps|L;Duck Walks|L;Wide Merkins|U;Carolina Dry Docks|U;Reverse Lunges|L;Star Jumps|C;Decline Merkins|U;Calf Raises|L;Alternating Shoulder Taps|F;Bernie Sanders|C;Bobby Hurley|L;Carioca|C;Copperhead Squat|L;Lunge|L;Mike Tyson|U;Monkey Humpers|L;Plank Jack|C;Smurf Jacks|C;Tempo Merkin|U;Step-ups|L;Big Boy Sit-up|F;American Hammers|F;Flutter Kicks|F;E2K|F;Freddie Mercury|F;V-Up|F;LBCs|F"),
 coupon:P("Curls|U;Overhead Press|U;Goblet Squats|L;Thrusters|F;Kettlebell Swing|F;Bend Over Rows|U;Coupon Carry|F;Skull Crushers|U;Halos|U;Bench Press|U;Elf on the Shelf|U")};
 var DESC={
 "Side Straddle Hops":"Jumping jacks. Jump your feet wide while your arms swing overhead, then jump back together.",
@@ -176,7 +176,7 @@ var OVR={
 "Wide Merkins":"Werkin is a Merkin with hands more than shoulder width apart. Also known as the Wide-Arm Merkin.",
 "Windmills":"An important stretching exercise. Begin standing with feet wider than your shoulders and arms straight out from your sides. With your legs kept straight, touch your opposite toe with your hand. Also called Toy Soldier."};
 Object.keys(OVR).forEach(function(k){DESC[k]=OVR[k]});
-var DIST={"Bear Brawl":1.5,"Bernie Sanders":.9,"Carioca":.9,"Bear Crawls":1.2,"Walking Lunges":1.2,"Sprints":.4,"Coupon Carry":.8,"Crab Walks":1.2,"Broad Jumps":1.5,"Duck Walks":1.5};
+var DIST={"Bernie Sanders":.9,"Carioca":.9,"Bear Crawls":1.2,"Walking Lunges":1.2,"Sprints":.4,"Coupon Carry":.8,"Crab Walks":1.2,"Broad Jumps":1.5,"Duck Walks":1.5};
 var FOCUS={Full:"",Legs:"L",Upper:"U",Cardio:"C"};
 var F=["Rounds","4 Corners","7’s","Dora 1-2-3","Pyramid","AMRAP","Tabata"];
 var S={tab:"plan",mins:45,coupon:false,mary:true,f1:"Random",f2:"Random",f3:"Random",focus:"Full",plan:null};
