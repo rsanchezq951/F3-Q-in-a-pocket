@@ -63,8 +63,8 @@ input,select{width:100%;padding:12px;border:2px solid var(--ln);border-radius:8p
 <script>
 var P=function(s){return s.split(";").map(function(x){return x.split("|")})};
 var LIB={
-warm:"Side Straddle Hops;Imperial Walkers;Windmills;Arm Circles;Butt Kickers;Willie Mays Hayes;Weed Pickers;Slow Squats;Michael Phelps;Toy Soldiers;Hillbillies;Moroccan Nightclub".split(";"),
-mary:"LBCs;Flutter Kicks;Plank Hold;American Hammers;Box Cutters;Hello Dollies;Low Slow Flutters;Dying Cockroaches;E2K;Reverse Crunches;Gas Pumpers;Heels to Heaven;Big Boy Sit-up;Dolly;Freddie Mercury;Pickle Pointer;Pickle Pounder;Rosalita;V-Up".split(";"),
+warm:"Side Straddle Hops;Imperial Walkers;Windmills;Arm Circles;Willie Mays Hayes;Weed Pickers;Copperhead Squat;Michael Phelps;Toy Soldiers;Hillbillies;Moroccan Nightclub".split(";"),
+mary:"LBCs;Flutter Kicks;Plank Hold;American Hammers;Box Cutters;Low Slow Flutters;Dying Cockroaches;E2K;Reverse Crunches;Gas Pumpers;Heels to Heaven;Big Boy Sit-up;Dolly;Freddie Mercury;Pickle Pointer;Pickle Pounder;Rosalita;V-Up".split(";"),
 thang:P("Burpees|F;Merkins|U;Squats|L;Walking Lunges|L;Bear Crawls|F;Diamond Merkins|U;Jump Squats|L;Hand Release Merkins|U;Bonnie Blairs|C;Sprints|C;Mountain Climbers|C;Dips|U;High Knees|C;Crab Walks|F;Broad Jumps|L;Duck Walks|L;Wide Merkins|U;Carolina Dry Docks|U;Reverse Lunges|L;Star Jumps|C;Decline Merkins|U;Calf Raises|L;Alternating Shoulder Taps|F;Bernie Sanders|C;Bobby Hurley|L;Carioca|C;Copperhead Squat|L;Lunge|L;Mike Tyson|U;Monkey Humpers|L;Plank Jack|C;Smurf Jacks|C;Tempo Merkin|U;Step-ups|L;Big Boy Sit-up|F;American Hammers|F;Flutter Kicks|F;E2K|F;Freddie Mercury|F;V-Up|F;LBCs|F"),
 coupon:P("Curls|U;Overhead Press|U;Goblet Squats|L;Thrusters|F;Kettlebell Swing|F;Bend Over Rows|U;Coupon Carry|F;Skull Crushers|U;Halos|U;Bench Press|U;Elf on the Shelf|U")};
 var DESC={
@@ -72,10 +72,8 @@ var DESC={
 "Imperial Walkers":"Standing, hands on head as if you’re doing a sit-up. Lift your knee to the opposite arm’s elbow. Flapjack.",
 "Windmills":"Feet wide. Bend at the waist and touch your right hand to your left foot, then switch sides.",
 "Arm Circles":"Arms straight out to the sides. Make small circles, then reverse direction halfway.",
-"Butt Kickers":"Jog in place, kicking your heels up toward your glutes.",
 "Willie Mays Hayes":"Hands behind your head, feet shoulder width. Hinge at the hips with a flat back, then stand up.",
 "Weed Pickers":"Feet wide. Bend over and touch the ground by one foot with both hands, then reach high. Alternate sides.",
-"Slow Squats":"Squat down for a slow 3 count, then stand up for a slow 3 count.",
 "Michael Phelps":"Swing both arms across your chest, then wide open, like a swimmer's warmup.",
 "Toy Soldiers":"Walk forward, kicking one straight leg up toward the opposite hand. Alternate legs.",
 "LBCs":"The “Little Baby Crunch.” Aka a crunch/sit-up.",
@@ -83,7 +81,6 @@ var DESC={
 "Plank Hold":"Hold a straight-body plank on your hands or forearms with your core tight.",
 "American Hammers":"Sit on your 6. Legs bent in the air (crossing ankles is easier, uncross them for a harder variation). Hold your fist in the other hand and twist your body to touch the ground on one side, then the other. That’s a 2 count move. A more appropriate name for the former Russian Twist. Rocky did beat the Russian in the movie. Sounds tougher too…",
 "Box Cutters":"Starting position is on your six holding feet 6 inches above ground. In cadence: 1. bring both legs up, 2. open legs wide (keep them straight!), 3. bring them down, still separated, 4. bring back to starting position. Can also be done in reverse (open, raise, close, lower).",
-"Hello Dollies":"On your back with hands under your hips, legs raised. Open the legs wide, then squeeze them together.",
 "Low Slow Flutters":"Flutter kicks done slowly with your heels hovering just above the ground.",
 "Dying Cockroaches":"4-count ab exercise done lying down that involves touching hand to opposite leg, back down, then other hand to opposite leg. Form can vary wildly.",
 "E2K":"Aka Pretzel Crunch. On your six. Right ankle over the left knee, bring your left elbow to your right knee. Switch. Aka the oblique crunch if you take the right foot and put that on the ground.",
@@ -177,6 +174,7 @@ var OVR={
 "Windmills":"An important stretching exercise. Begin standing with feet wider than your shoulders and arms straight out from your sides. With your legs kept straight, touch your opposite toe with your hand. Also called Toy Soldier."};
 Object.keys(OVR).forEach(function(k){DESC[k]=OVR[k]});
 var DIST={"Bernie Sanders":.9,"Carioca":.9,"Bear Crawls":1.2,"Walking Lunges":1.2,"Sprints":.4,"Coupon Carry":.8,"Crab Walks":1.2,"Broad Jumps":1.5,"Duck Walks":1.5};
+var MIC=["Flutter Kicks","American Hammers","Low Slow Flutters","Dying Cockroaches","E2K","Reverse Crunches","Gas Pumpers","Heels to Heaven","Dolly","Freddie Mercury","Pickle Pointer","Pickle Pounder","Rosalita"];
 var FOCUS={Full:"",Legs:"L",Upper:"U",Cardio:"C"};
 var F=["Rounds","4 Corners","7’s","Dora 1-2-3","Pyramid","AMRAP","Tabata"];
 var S={tab:"plan",mins:45,coupon:false,mary:true,f1:"Random",f2:"Random",f3:"Random",focus:"Full",plan:null};
@@ -195,8 +193,8 @@ function fsw(ms){var t=Math.floor(ms/100),s=Math.floor(t/10);return Math.floor(s
 function lbl(it){return(it.lab?it.lab+": ":"")+it.n}
 function FM(v){return["Random"].concat(F).map(function(x){return'<option'+(x===v?" selected":"")+'>'+x+'</option>'}).join("")}
 function thangPool(){var p=LIB.thang.slice();if(S.coupon)p=p.concat(LIB.coupon);var f=FOCUS[S.focus];if(f){var m=p.filter(function(x){return x[1]===f||x[1]==="F"});if(m.length>=5)p=m}return p.map(function(x){return x[0]})}
-function reps(sec,nm){if(DIST[nm])return pick(nm==="Sprints"?[40,50,60]:[20,25,30,40])+" yds";if(nm==="Plank Hold")return pick(["30 sec","45 sec","60 sec"]);return sec==="thang"?pick(["x10","x15","x20","x25"]):sec==="warm"?pick(["x15 IC","x20 IC","x25 IC"]):pick(["x20 IC","x25 IC","x30 IC"])}
-function secs(key,r,nm){var y=/(\d+) yds/.exec(r);if(y)return y[1]*(DIST[nm]||1)*.75+12;var m=/(\d+) sec/.exec(r);if(m)return +m[1]+8;var n=parseInt(r.slice(1),10);return n*(key==="thang"?2.6:1.5)+(key==="thang"?12:8)}
+function reps(sec,nm){if(DIST[nm])return pick(nm==="Sprints"?[40,50,60]:[20,25,30,40])+" yds";if(nm==="Plank Hold")return"30 sec";if(sec==="thang")return pick(["x10","x15","x20","x25"])+" OYO";if(sec==="warm")return nm==="Michael Phelps"||nm==="Arm Circles"?"":pick(["x12","x15","x20"])+" IC";return"x20"+(MIC.indexOf(nm)>-1?" IC":" OYO")}
+function secs(key,r,nm){if(!r)return 30;var y=/(\d+) yds/.exec(r);if(y)return y[1]*(DIST[nm]||1)*.75+12;var m=/(\d+) sec/.exec(r);if(m)return +m[1]+8;var n=parseInt(r.slice(1),10);return n*(key==="thang"?2.6:1.5)+(key==="thang"?12:8)}
 function calc(s,target){
 var f=s.fmt||"Rounds";s.target=target;s.rounds=1;
 if(f==="Dora 1-2-3"){var u=Math.max(10,Math.min(100,Math.round(target/140)*10));s.items.forEach(function(it,i){it.r="x"+u*(i+1)});s.secs=u*14+45}
@@ -204,7 +202,7 @@ else if(f==="7’s"){s.secs=s.items.length/2*300}
 else if(f==="Pyramid"){var k=10,tm=function(k){var n=k/5;return 2*(5*n*(n+1)-k)*2.6+(2*n-1)*15};while(k<30&&tm(k)<target)k+=5;var r=[],x;for(x=5;x<=k;x+=5)r.push(x);for(x=k-5;x>=5;x-=5)r.push(x);s.items.forEach(function(it){it.r=r.join("-")});s.secs=tm(k)}
 else if(f==="AMRAP"){s.secs=Math.max(300,Math.round(target/60)*60)}
 else if(f==="Tabata"){s.secs=s.items.length*270}
-else{var tr=f==="4 Corners"?15:0,one=s.items.reduce(function(a,it){return a+secs(s.key,it.r,it.n)+tr},0)+(s.fmt==="Rounds"?60:0);s.rounds=s.key==="mary"?Math.max(1,Math.floor(360/one)):Math.max(1,Math.min(f==="4 Corners"?4:6,Math.round(target/one)));s.secs=one*s.rounds}
+else{var tr=f==="4 Corners"?15:0,one=s.items.reduce(function(a,it){return a+secs(s.key,it.r,it.n)+tr},0)+(s.fmt==="Rounds"?60:0);s.rounds=s.key==="warm"||s.key==="mary"?1:Math.max(1,Math.min(f==="4 Corners"?4:6,Math.round(target/one)));s.secs=one*s.rounds+(s.key==="warm"?150:0)}
 s.mins=Math.max(1,Math.round(s.secs/60));
 if(f==="AMRAP")s.note="AMRAP: as many rounds as possible in "+s.mins+" min. Count your rounds."}
 function mkT(title,f,pool,n,target){
@@ -225,14 +223,14 @@ else if(f==="Tabata"){var nb=Math.max(1,Math.min(4,Math.round(target/270)));shuf
 else{s.fmt="Rounds";s.items=nm(shuffle(pool).slice(0,n));s.note="After every round, everyone runs a lap."}
 calc(s,target);return s}
 function gen(){
-var m=S.mins,nT=m>=60?5:4,nW=m>=60?5:4,nM=m>=45?4:3,tp=S.mary?.85-330/(m*60):.85;
+var m=S.mins,nT=m>=60?5:4,nW=5,nM=m>=45?4:3,tp=S.mary?.85-330/(m*60):.85;
 function mk(key,title,pool,n,share){var s={key:key,title:title,items:shuffle(pool).slice(0,n).map(function(x){return{n:x,r:reps(key,x)}})};calc(s,m*60*share);if(key==="warm")s.note="Group moseys about 0.2 mile before starting the warm-up.";return s}
 function fm(v){return v==="Random"?pick(F):v}
 var fs=[];[S.f1,S.f2,S.f3].forEach(function(v){fs.push(v==="Random"?pick(F.filter(function(x){return fs.indexOf(x)<0})):v)});
-var used=[],sh=[tp/3-.01,tp/3,tp/3+.01],th=[];
+var wm=mk("warm","Warm-o-rama",LIB.warm,nW,.15);tp=(m*60-wm.secs-(S.mary?240:0))/(m*60);var used=[],sh=[tp/3-.01,tp/3,tp/3+.01],th=[];
 fs.forEach(function(f,i){var p=thangPool().filter(function(x){return used.indexOf(x)<0});if(p.length<6)p=thangPool();var t=mkT("Thang "+(i+1),f,p,nT,m*60*sh[i]);t.items.forEach(function(it){used.push(it.n)});th.push(t)});
-S.plan=[mk("warm","Warm-o-rama",LIB.warm,nW,.15)].concat(th);
-if(S.mary){var bm=null;for(var i=0;i<24;i++){var c=mk("mary","Mary",LIB.mary,3+Math.floor(Math.random()*4),.2);if(!bm||Math.abs(c.secs-330)<Math.abs(bm.secs-330))bm=c}S.plan.push(bm)}draw()}
+S.plan=[wm].concat(th);
+if(S.mary){var bm=mk("mary","Mary",LIB.mary,6,.2),ord={"American Hammers":1,"Pickle Pointer":2,"Pickle Pounder":2,"Plank Hold":3};bm.items.sort(function(a,b){return(ord[a.n]||0)-(ord[b.n]||0)});S.plan.push(bm)}draw()}
 function head(s){return(s.fmt&&s.fmt!=="Rounds"?s.fmt+", ":"")+(s.rounds>1?s.rounds+(s.fmt==="4 Corners"?" laps, ":" rounds, "):"")+"about "+s.mins+" min"}
 function viewPlan(){
 var h='<div class="row"><div><label for="mins">Length</label><select id="mins">'+[45,60].map(function(m){return'<option value="'+m+'"'+(m===S.mins?" selected":"")+'>'+m+' minutes</option>'}).join("")+'</select></div><div><label for="foc">Focus</label><select id="foc">'+Object.keys(FOCUS).map(function(k){return'<option'+(k===S.focus?" selected":"")+'>'+k+'</option>'}).join("")+'</select></div></div>'+
@@ -247,7 +245,7 @@ return h}
 function showInfo(n){var m=document.getElementById("info");m.querySelector("h3").textContent=n;m.querySelector("p").textContent=DESC[n]||"No description yet.";m.hidden=false}
 function showSum(){
 var d=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"}),tot=S.plan.reduce(function(a,s){return a+s.mins},0),h='<h1>F3 Beatdown</h1><p>'+d+'. About '+tot+' min'+(S.coupon?', coupons':'')+'.</p>';
-S.plan.forEach(function(s){h+='<h2>'+s.title+' <small>'+head(s)+'</small></h2>'+(s.note?'<p><em>'+esc(s.note)+'</em></p>':'')+'<ul>'+s.items.map(function(it){return'<li>'+esc(lbl(it))+', '+it.r+'</li>'}).join("")+'</ul>'});
+S.plan.forEach(function(s){h+='<h2>'+s.title+' <small>'+head(s)+'</small></h2>'+(s.note?'<p><em>'+esc(s.note)+'</em></p>':'')+'<ul>'+s.items.map(function(it){return'<li>'+esc(lbl(it))+(it.r?', '+it.r:'')+'</li>'}).join("")+'</ul>'});
 document.getElementById("paper").innerHTML=h;document.getElementById("sum").hidden=false}
 function bindPlan(){
 function $(i){return document.getElementById(i)}
